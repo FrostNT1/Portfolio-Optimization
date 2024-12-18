@@ -1,0 +1,38 @@
+data:
+  start_date: "2010-01-01"
+  end_date: "2023-12-31"
+  frequency: "daily"  # Options: daily, weekly, monthly
+  price_column: "Adj Close"
+
+optimization:
+  window_size: 252  # Number of days for rolling window
+  rebalance_frequency: 21  # Trading days between rebalances
+  risk_free_rate: 0.04  # Annual risk-free rate
+
+constraints:
+  max_position: 0.10  # Maximum weight per asset
+  min_position: 0.0   # Minimum weight per asset
+  max_sector_exposure: 0.30  # Maximum exposure per sector
+  max_turnover: 0.20  # Maximum turnover per rebalance
+
+ml_parameters:
+  return_model: "ARIMA"  # Options: ARIMA, SARIMA
+  volatility_model: "GARCH"  # Options: GARCH, EWMA
+  training_window: 504  # Days of data for ML model training
+
+universe:
+  n_stocks: 5  # Number of stocks to analyze
+  stocks:  # List of specific stocks to analyze
+    - "AAPL"
+    - "MSFT"
+    - "GOOGL"
+    - "AMZN"
+    - "META"
+  etfs:  # ETFs for diversification
+    - "AGG"  # US Aggregate Bond ETF
+    - "DBC"  # Commodity ETF
+    - "UUP"  # US Dollar ETF
+
+benchmarks:
+  - "SPY"  # S&P 500 ETF
+  - "AGG"  # US Aggregate Bond ETF

@@ -1,0 +1,26 @@
+data:
+  start_date: "2023-01-01"
+  end_date: "2023-12-31"
+  frequency: "daily"
+  price_column: "Close"
+
+optimization:
+  window_size: 252
+  rebalance_frequency: 21
+  risk_free_rate: 0.04
+
+constraints:
+  max_position: 0.40
+  min_position: 0.0
+  max_sector_exposure: 0.60
+  max_turnover: 0.20
+
+universe:
+  n_stocks: 5
+  etfs:
+    - "SPY"
+    - "AGG"
+
+benchmarks:
+  - "SPY"
+  - "AGG" 
