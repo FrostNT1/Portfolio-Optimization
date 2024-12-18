@@ -1,5 +1,7 @@
 import os
 import pytest
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend for testing
 
 @pytest.fixture(scope="session")
 def test_config_path():

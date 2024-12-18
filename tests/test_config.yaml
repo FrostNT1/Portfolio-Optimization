@@ -17,6 +17,12 @@ constraints:
 
 universe:
   n_stocks: 5
+  stocks:
+    - "AAPL"
+    - "MSFT"
+    - "GOOGL"
+    - "AMZN"
+    - "META"
   etfs:
     - "SPY"
     - "AGG"
