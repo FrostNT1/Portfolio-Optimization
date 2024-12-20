@@ -20,23 +20,6 @@ class DataCollector:
         self.start_date = self.config['data']['start_date']
         self.end_date = self.config['data']['end_date']
         self.price_col = self.config['data']['price_column']
-        
-    def get_sp500_tickers(self) -> List[str]:
-        """Get list of stock tickers from config or S&P 500."""
-        # First check if specific stocks are defined in config
-        if 'stocks' in self.config['universe']:
-            return self.config['universe']['stocks']
-        
-        # If no specific stocks defined, use default stocks
-        default_stocks = ["AAPL", "MSFT", "GOOGL", "AMZN", "META"]
-        n_stocks = min(len(default_stocks), self.config['universe']['n_stocks'])
-        return default_stocks[:n_stocks]
-        
-        # TODO: For future implementation
-        # To get actual S&P 500 constituents, you would need to:
-        # 1. Use a proper market data API (e.g., Alpha Vantage, IEX Cloud)
-        # 2. Or scrape from a reliable source
-        # 3. Or maintain a local database of constituents
     
     def fetch_data(self, tickers: List[str]) -> pd.DataFrame:
         """Fetch historical data for given tickers."""
@@ -86,15 +69,10 @@ class DataCollector:
         
         return returns.dropna()
     
-    def process_data(self) -> Dict[str, pd.DataFrame]:
+    def process_data(self, tickers: List[str]) -> Dict[str, pd.DataFrame]:
         """Main function to collect and process all required data."""
-        # Get universe of stocks
-        sp500_tickers = self.get_sp500_tickers()
-        etfs = self.config['universe']['etfs']
-        all_tickers = sp500_tickers + etfs
-        
         # Fetch price data
-        prices = self.fetch_data(all_tickers)
+        prices = self.fetch_data(tickers)
         
         # Calculate returns at different frequencies
         returns = {
@@ -125,6 +103,8 @@ class DataCollector:
             df.to_csv(os.path.join(data_dir, f'returns_{freq}.csv'))
 
 if __name__ == "__main__":
+    # Example usage
     collector = DataCollector()
-    data = collector.process_data()
+    tickers = ["AAPL", "MSFT", "GOOGL", "AMZN", "META"]  # Example tickers
+    data = collector.process_data(tickers)
     print("Data collection and processing completed successfully.") 

@@ -356,9 +356,11 @@ class PortfolioOptimizer:
         
         plt.tight_layout()
         if show_plot:
-            plt.show()
+            return fig
+        else:
             plt.close(fig)
-        return fig
+            plt.clf()
+            return None
 
     def plot_portfolio_weights(self, ef: pd.DataFrame, n_points: int = 5, show_plot: bool = True) -> None:
         """Plot portfolio weights for selected points along the efficient frontier."""
@@ -399,11 +401,7 @@ class PortfolioOptimizer:
             plt.ylabel('Weight')
             plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
             plt.tight_layout()
-            
-            if show_plot:
-                plt.show()
-                plt.close(fig)
-            
+                        
             # Print the actual returns and volatilities for these points
             print("\nSelected portfolios metrics:")
             for i, (_, row) in enumerate(selected_portfolios.iterrows()):
@@ -415,8 +413,12 @@ class PortfolioOptimizer:
                 weights = row['weights']
                 for asset, weight in weights.items():
                     print(f"{asset}: {weight:.2%}")
-            
-            return fig
+            if show_plot:
+                return fig
+            else:
+                plt.close(fig)
+                plt.clf()
+                return None
         
         except Exception as e:
             print(f"Error plotting weights: {str(e)}")
