@@ -21,13 +21,14 @@ ml_parameters:
   training_window: 504  # Days of data for ML model training
 
 universe:
-  n_stocks: 5  # Number of stocks to analyze
+  n_stocks: 6  # Number of stocks to analyze
   stocks:  # List of specific stocks to analyze
     - "AAPL"
     - "MSFT"
     - "GOOGL"
     - "AMZN"
     - "META"
+    - "NVDA"
   etfs:  # ETFs for diversification
     - "AGG"  # US Aggregate Bond ETF
     - "DBC"  # Commodity ETF

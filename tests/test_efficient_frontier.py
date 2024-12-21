@@ -161,7 +161,7 @@ def test_monte_carlo_simulation(optimizer, sample_returns):
     ef = optimizer.generate_efficient_frontier(sample_returns, n_points=5, show_plots=False)
     
     # Plot with Monte Carlo simulation
-    fig = optimizer.plot_efficient_frontier(ef, show_sharpe=True, show_assets=True, returns=sample_returns, show_plot=False)
+    fig = optimizer.plot_efficient_frontier(ef, show_sharpe=True, show_assets=True, returns=sample_returns, show_plot=True)
     
     # Check that we have scatter plots (Monte Carlo points and assets)
     scatter_plots = []

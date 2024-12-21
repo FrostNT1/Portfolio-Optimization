@@ -66,28 +66,28 @@ def test_objective_function(optimizer, sample_returns):
     
     # Test Sharpe ratio objective
     sharpe_obj = optimizer.objective_function(
-        weights, returns_array, cov_matrix, 'sharpe'
+        weights, returns_array, cov_matrix, 'sharpe',
     )
     assert isinstance(sharpe_obj, float)
     assert np.isfinite(sharpe_obj)
     
     # Test volatility objective
     vol_obj = optimizer.objective_function(
-        weights, returns_array, cov_matrix, 'volatility'
+        weights, returns_array, cov_matrix, 'volatility',
     )
     assert isinstance(vol_obj, float)
     assert vol_obj > 0
     
     # Test return objective
     ret_obj = optimizer.objective_function(
-        weights, returns_array, cov_matrix, 'return'
+        weights, returns_array, cov_matrix, 'return',
     )
     assert isinstance(ret_obj, float)
     
     # Test invalid objective
     with pytest.raises(ValueError):
         optimizer.objective_function(
-            weights, returns_array, cov_matrix, 'invalid'
+            weights, returns_array, cov_matrix, 'invalid',
         )
 
 def test_optimize_portfolio(optimizer, sample_returns):
@@ -154,15 +154,15 @@ def test_monte_carlo_weights(optimizer, sample_returns):
 
 def test_plot_efficient_frontier(optimizer, sample_returns):
     """Test efficient frontier plotting functionality."""
-    ef = optimizer.generate_efficient_frontier(sample_returns, n_points=5, show_plots=False)
+    ef = optimizer.generate_efficient_frontier(sample_returns, n_points=5)
     
     # Test basic plotting
-    fig1 = optimizer.plot_efficient_frontier(ef, show_plot=False)
+    fig1 = optimizer.plot_efficient_frontier(ef)
     assert isinstance(fig1, plt.Figure)
     plt.close(fig1)
     
     # Test plotting with all options
-    fig2 = optimizer.plot_efficient_frontier(ef, show_sharpe=True, show_assets=True, returns=sample_returns, show_plot=False)
+    fig2 = optimizer.plot_efficient_frontier(ef, show_sharpe=True, show_assets=True, returns=sample_returns)
     
     # Check plot components
     axes = fig2.get_axes()
@@ -184,10 +184,10 @@ def test_plot_efficient_frontier(optimizer, sample_returns):
 
 def test_plot_portfolio_weights(optimizer, sample_returns):
     """Test portfolio weights plotting functionality."""
-    ef = optimizer.generate_efficient_frontier(sample_returns, n_points=5, show_plots=False)
+    ef = optimizer.generate_efficient_frontier(sample_returns, n_points=5)
     
     # Test weight plotting
-    fig = optimizer.plot_portfolio_weights(ef, n_points=3, show_plot=False)
+    fig = optimizer.plot_portfolio_weights(ef, n_points=3)
     assert isinstance(fig, plt.Figure)
     
     # Check plot components
